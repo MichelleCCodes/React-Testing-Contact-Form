@@ -9,16 +9,21 @@ const ContactForm = () => {
   const onSubmit = (data) => {
     setData(data);
   };
-
+  const handleChange = event => {
+    setData({ ...data, [event.target.name]: event.target.value });
+  };
   return (
     <div className="App">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="firstName">First Name*</label>
           <input
+            id="firstName"
+            type="text"
             name="firstName"
             placeholder="Edd"
-            ref={register({ required: true, maxLength: 3 })}
+            onChange={event => handleChange(event)}
+            ref={register({ required: true, maxLength: 10 })}
           />
           {errors.firstName && (
             <p>Looks like there was an error: {errors.firstName.type}</p>
@@ -29,8 +34,10 @@ const ContactForm = () => {
           <label htmlFor="lastName">Last Name*</label>
           <input
             id="lastName"
+            type="text"
             name="lastName"
             placeholder="Burke"
+            onChange={event => handleChange(event)}
             ref={register({ required: true })}
           />
           {errors.lastName && (
@@ -43,8 +50,10 @@ const ContactForm = () => {
             Email*
           </label>
           <input name="email" 
-            id="lastName"
+            id="email"
+            type="email"
             placeholder="bluebill1049@hotmail.com"
+            onChange={event => handleChange(event)}
             ref={register({ required: true })} 
           />
           {errors.email && (
@@ -55,7 +64,9 @@ const ContactForm = () => {
           <label htmlFor="message">Message</label>
           <textarea
             name="message"
+            type="text"
             id="message" 
+            onChange={event => handleChange(event)}
             ref={register({ required: false })} 
           />
         </div>
